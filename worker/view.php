@@ -7,9 +7,13 @@
 
 <?php include HEADER_TEMPLATE; ?>
 
-<?php if ($worker) : ?>
+<?php if ($worker) { ?>
 	<p><?php echo $worker["NOME"]; ?></p>
 
-<?php endif; ?>
+<?php 
+	} else {
+		header('Location: '. BASEURL);
+	}
+?>
 
 <?php include FOOTER_TEMPLATE; ?>
