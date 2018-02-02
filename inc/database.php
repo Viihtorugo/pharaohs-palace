@@ -39,7 +39,7 @@
 		try {
 
 			if ($id && !($is_fk_id || $fk)) {
-				$sql = "SELECT * FROM $table WHERE `COD_FUNC` = $id";
+				$sql = "SELECT * FROM $table WHERE `NUM_QUARTO` OR 'COD_FUNC' = $id";
 				$result = $database->query($sql);
 				
 				if ($result->num_rows > 0)
@@ -147,7 +147,7 @@
 
 		try {
 
-			$sql = "UPDATE $table SET $items WHERE `COD_FUNC` = $id";
+			$sql = "UPDATE $table SET $items WHERE `NUM_QUARTO` OR 'COD_FUNC' = $id";
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro atualizado com sucesso';
@@ -166,7 +166,7 @@
 	/**
 	*  Removes records from parent and child tables
 	*/
-	function remove($table, $id, $is_parent = null, $child_table = null, $fk = null) {
+	function removefUNC($table, $id, $is_parent = null, $child_table = null, $fk = null) {
 		$database = open_database();
 
 		try {
@@ -174,7 +174,31 @@
 			if ($is_parent && $child_table && $fk)
 				$database->query("DELETE FROM $child_table WHERE `$fk` = $id");
 			
-			$sql = "DELETE FROM " . $table . " WHERE `COD_FUNC` = " . $id;
+			$sql = "DELETE FROM " . $table . " WHERE 'COD_FUNC' = " . $id;
+			$database->query($sql);
+
+			$_SESSION['message'] = 'Registro removido com sucesso';
+			$_SESSION['type'] = 'success';
+		
+		} catch (Exception $e) {
+			
+			$_SESSION['message'] = 'Não foi possível realizar a operação.';
+			$_SESSION['type'] = 'danger';
+		
+		}
+
+		close_database($database);
+	}
+
+	function removeQUART($table, $id, $is_parent = null, $child_table = null, $fk = null) {
+		$database = open_database();
+
+		try {
+			
+			if ($is_parent && $child_table && $fk)
+				$database->query("DELETE FROM $child_table WHERE `$fk` = $id");
+			
+			$sql = "DELETE FROM " . $table . " WHERE `NUM_QUARTO` = " . $id;
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro removido com sucesso';

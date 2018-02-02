@@ -39,6 +39,6 @@
 	}
 
 	function delete($id) {
-		remove('t_funcionario', $id, true);
+		removefUNC('t_funcionario', $id, true);
 		header('location: index.php');
 	}
