@@ -8,8 +8,8 @@
 <?php include HEADER_TEMPLATE; ?>
 
 <?php if ($worker) { ?>
-	<p><?php echo $worker["NOME"]; ?></p>
-
+	<p><h1>Funcionário: <?php echo $worker["NOME"]; ?><h1></p>
+		<a href="<?php echo BASEURL; ?>quarto">Cadastrar Quartos</a>
 <?php 
 	} else {
 		header('Location: '. BASEURL);

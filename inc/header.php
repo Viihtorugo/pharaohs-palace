@@ -13,7 +13,6 @@
     <a href="<?php echo BASEURL; ?>">Pharaohs Palace</a>
     <ul class="container">
       <li><a href="<?php echo BASEURL; ?>funcionario">Cadastrar funcionario</a></li>
-      <li><a href="<?php echo BASEURL; ?>quarto">Cadastrar quarto</a></li>
     </ul>
   </nav>
 
