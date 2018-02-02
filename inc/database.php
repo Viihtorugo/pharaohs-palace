@@ -39,7 +39,7 @@
 		try {
 
 			if ($id && !($is_fk_id || $fk)) {
-				$sql = "SELECT * FROM $table WHERE `id` = $id";
+				$sql = "SELECT * FROM $table WHERE `COD_FUNC` = $id";
 				$result = $database->query($sql);
 				
 				if ($result->num_rows > 0)
@@ -67,6 +67,7 @@
 		close_database($database);
 		return $found;	
 	}
+
 
 	function find_login($table, $user = null, $pass = null){
 		$database = open_database();
@@ -146,7 +147,7 @@
 
 		try {
 
-			$sql = "UPDATE $table SET $items WHERE `id` = $id";
+			$sql = "UPDATE $table SET $items WHERE `COD_FUNC` = $id";
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro atualizado com sucesso';
@@ -165,17 +166,15 @@
 	/**
 	*  Removes records from parent and child tables
 	*/
-	function remove($table, $id, $is_parent = false, $child_tables = null, $fk = null) {
+	function remove($table, $id, $is_parent = null, $child_table = null, $fk = null) {
 		$database = open_database();
 
 		try {
 			
-			if ($is_parent && $child_tables && $fk) {
-				foreach ($child_tables as $child_table) 
-					$database->query("DELETE FROM $child_table WHERE `$fk` = $id");
-			}
+			if ($is_parent && $child_table && $fk)
+				$database->query("DELETE FROM $child_table WHERE `$fk` = $id");
 			
-			$sql = "DELETE FROM " . $table . " WHERE `id` = " . $id;
+			$sql = "DELETE FROM " . $table . " WHERE `COD_FUNC` = " . $id;
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro removido com sucesso';
