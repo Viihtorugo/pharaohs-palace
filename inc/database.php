@@ -68,29 +68,16 @@
 		return $found;	
 	}
 
-	function find_search($table, $name = null){
+	function find_login($table, $user = null, $pass = null){
 		$database = open_database();
 		$found = null;
 
 		try {
 
-			if ($name == 'candidates') {
-
-				$sql = "SELECT * FROM state_candidates LIKE `name` = %$name%";
+			if (!is_null($user) && !is_null($pass)) {
+				$sql = "SELECT * FROM $table WHERE `LOGIN` = '$user' AND `SENHA` = '$pass'";
 				$result = $database->query($sql);
 
-				if ($result->num_rows > 0)
-					$found['cities'] = $result->fetch_assoc();
-
-				if ($result->num_rows > 0)
-					$found['states'] = $result->fetch_assoc();
-
-			}
-
-			if (!is_null($name)) {
-				$sql = "SELECT * FROM $table LIKE `name` = %$name%";
-				$result = $database->query($sql);
-				
 				if ($result->num_rows > 0)
 					$found = $result->fetch_assoc();
 			} 
