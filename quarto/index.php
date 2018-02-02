@@ -12,8 +12,6 @@
 		<div class="container data-item">	
 			<h3>O numero do quarto é:<?php echo $quarto['NUM_QUARTO'] ; ?></h3>
 			<div>
-				<a class="btn btn-primary" href="view.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Visualizar</a>
-				<a class="btn btn-warning" href="edit.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Editar</a>
 				<a class="btn btn-danger" href="delete.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Excluir</a>
 			</div>
 		</div>

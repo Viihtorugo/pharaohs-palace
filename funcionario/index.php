@@ -12,8 +12,6 @@
 		<div class="container data-item">	
 			<h3><?php echo $funcionario['NOME']; ?></h3>
 			<div>
-				<a class="btn btn-primary" href="view.php?COD_FUNC=<?php echo $funcionario['COD_FUNC']; ?>">Visualizar</a>
-				<a class="btn btn-warning" href="edit.php?COD_FUNC=<?php echo $funcionario['COD_FUNC']; ?>">Editar</a>
 				<a class="btn btn-danger" href="delete.php?COD_FUNC=<?php echo $funcionario['COD_FUNC']; ?>">Excluir</a>
 			</div>
 		</div>
