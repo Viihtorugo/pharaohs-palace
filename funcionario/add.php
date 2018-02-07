@@ -3,7 +3,7 @@
 	add();
 ?>
 
-<?php include(HEADER_TEMPLATE); ?>
+<?php include(HEADER_TEMPLATE_INTERNAL); ?>
 
 <h2>+ Cadastro de funcionario</h2>
 <form class="container" action="add.php" method="post">

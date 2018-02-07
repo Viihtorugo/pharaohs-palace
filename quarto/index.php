@@ -3,7 +3,7 @@
 	index();
 ?>
 
-<?php include(HEADER_TEMPLATE); ?>
+<?php include(HEADER_TEMPLATE_INTERNAL); ?>
 
 <h2>Quartos</h2>
 
@@ -12,7 +12,8 @@
 		<div class="container data-item">	
 			<h3>O numero do quarto é:<?php echo $quarto['NUM_QUARTO'] ; ?></h3>
 			<div>
-				<a class="btn btn-danger" href="delete.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Excluir</a>
+			<a class="btn btn-primary" href="view.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Visualizar</a>
+			<a class="btn btn-danger" href="delete.php?NUM_QUARTO=<?php echo $quarto['NUM_QUARTO']; ?>">Excluir</a>
 			</div>
 		</div>
 	<?php endforeach; ?>

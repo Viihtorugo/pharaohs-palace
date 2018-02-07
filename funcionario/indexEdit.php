@@ -11,6 +11,9 @@
 	<?php foreach ($funcionarios as $funcionario) : ?>
 		<div class="container data-item">	
 			<h3><?php echo $funcionario['NOME']; ?></h3>
+			<div>
+				<a class="btn btn-danger" href="delete.php?COD_FUNC=<?php echo $funcionario['COD_FUNC']; ?>">Excluir</a>
+			</div>
 		</div>
 	<?php endforeach; ?>
 <?php else : ?>

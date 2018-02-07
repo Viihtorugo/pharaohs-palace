@@ -32,14 +32,14 @@
 	/**
 	*  Locates records with (also in child tables) or without the id parameter.
 	*/
-	function find($table, $id = null, $is_fk_id = false, $fk = null) {
+	function find_quarto($table, $id = null, $is_fk_id = false, $fk = null) {
 		$database = open_database();
 		$found = null;
 
 		try {
 
 			if ($id && !($is_fk_id || $fk)) {
-				$sql = "SELECT * FROM $table WHERE `NUM_QUARTO` OR 'COD_FUNC' = $id";
+				$sql = "SELECT * FROM $table WHERE `NUM_QUARTO` = $id";
 				$result = $database->query($sql);
 				
 				if ($result->num_rows > 0)
@@ -48,6 +48,41 @@
 			else {
 				if ($id && $is_fk_id && $fk)
 					$sql = "SELECT * FROM $table WHERE `$fk` = $id";
+				else
+					$sql = "SELECT * FROM $table";
+
+				$result = $database->query($sql);
+
+				if ($result->num_rows > 0)
+					$found = $result->fetch_all(MYSQLI_ASSOC);
+			}
+
+		}	catch (Exception $e) {
+
+			$_SESSION['message'] = $e->getMessage();
+			$_SESSION['type'] = 'danger';
+
+		}
+
+		close_database($database);
+		return $found;	
+	}
+	function find_func($table, $idf = null, $is_fk_id = false, $fk = null) {
+		$database = open_database();
+		$found = null;
+		echo("Estou funcionando");
+		try {
+
+			if ($idf && !($is_fk_id || $fk)) {
+				$sql = "SELECT * FROM $table WHERE 'COD_FUNC' = $idf";
+				$result = $database->query($sql);
+				
+				if ($result->num_rows > 0)
+					$found = $result->fetch_assoc();
+			} 
+			else {
+				if ($idf && $is_fk_id && $fk)
+					$sql = "SELECT * FROM $table WHERE `$fk` = $idf";
 				else
 					$sql = "SELECT * FROM $table";
 
@@ -97,9 +132,14 @@
 	/**
 	*  Locates all records from a table
 	*/
-	function find_all($table) {
-		return find($table);
+	function find_all_func($table) {
+		return find_func($table);
 	}
+
+	function find_all_quartos($table) {
+		return find_quarto($table);
+	}
+
 
 	/**
 	*  Saves data in a table 
@@ -137,7 +177,7 @@
 	/**
 	*  Updates data from a table record
 	*/
-	function update($table = null, $id = 0, $data = null) {
+	function update_func($table = null, $idf = 0, $data = null) {
 		$database = open_database();
 		$items = null;
 
@@ -147,7 +187,32 @@
 
 		try {
 
-			$sql = "UPDATE $table SET $items WHERE `NUM_QUARTO` OR 'COD_FUNC' = $id";
+			$sql = "UPDATE $table SET $items WHERE 'COD_FUNC' = $idf";
+			$database->query($sql);
+
+			$_SESSION['message'] = 'Registro atualizado com sucesso';
+			$_SESSION['type'] = 'success';
+		
+		} catch (Exception $e) {
+
+			$_SESSION['message'] = 'Não foi possível realizar a operação.';
+			$_SESSION['type'] = 'danger';
+		
+		}
+
+		close_database($database);
+	}
+	function update_quarto($table = null, $id = 0, $data = null) {
+		$database = open_database();
+		$items = null;
+
+		foreach ($data as $key => $value)
+			$items .= "`" . trim($key, "'") . "` = '$value',";
+		$items = rtrim($items, ',');
+
+		try {
+
+			$sql = "UPDATE $table SET $items WHERE `NUM_QUARTO` = $id";
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro atualizado com sucesso';
@@ -166,7 +231,7 @@
 	/**
 	*  Removes records from parent and child tables
 	*/
-	function removefUNC($table, $id, $is_parent = null, $child_table = null, $fk = null) {
+	function remove_func($table, $id, $is_parent = null, $child_table = null, $fk = null) {
 		$database = open_database();
 
 		try {
@@ -174,7 +239,7 @@
 			if ($is_parent && $child_table && $fk)
 				$database->query("DELETE FROM $child_table WHERE `$fk` = $id");
 			
-			$sql = "DELETE FROM " . $table . " WHERE 'COD_FUNC' = " . $id;
+			$sql = "DELETE FROM " . $table . " WHERE `COD_FUNC` = " . $id;
 			$database->query($sql);
 
 			$_SESSION['message'] = 'Registro removido com sucesso';
@@ -190,7 +255,7 @@
 		close_database($database);
 	}
 
-	function removeQUART($table, $id, $is_parent = null, $child_table = null, $fk = null) {
+	function remove_quarto($table, $id, $is_parent = null, $child_table = null, $fk = null) {
 		$database = open_database();
 
 		try {

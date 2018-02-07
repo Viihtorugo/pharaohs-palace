@@ -8,12 +8,12 @@
 
 	function index() {
 		global $funcionarios;
-		$funcionarios = find_all('t_funcionario');
+		$funcionarios = find_all_func('t_funcionario');
 	}
 
-	function view($id) {
+	function view($idf) {
 		global $funcionario;
-		$funcionario = find('t_funcionario', $id);
+		$funcionario = find_func('t_funcionario', $idf);
 	}
 
 	function add() {
@@ -25,20 +25,20 @@
 
 	function edit() {
 		if (isset($_GET['COD_FUNC'])) {
-			$id = $_GET['COD_FUNC'];
+			$idf = $_GET['COD_FUNC'];
 			
 			if (isset($_POST['funcionario'])) {
 				$funcionario = $_POST['funcionario'];
 
-				update('t_funcionario', $id, $funcionario);
+				update_func('t_funcionario', $idf, $funcionario);
 				header('location: index.php');
 			} else {
-				view($id);
+				view($idf);
 			}
 		}
 	}
 
-	function delete($id) {
-		removefUNC('t_funcionario', $id, true);
-		header('location: index.php');
+	function delete($idf) {
+		remove_func('t_funcionario', $idf, true);
+		header('location: indexEdit.php');
 	}

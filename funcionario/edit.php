@@ -3,7 +3,7 @@
 	edit();
 ?>
 
-<?php include(HEADER_TEMPLATE); ?>
+<?php include(HEADER_TEMPLATE_INTERNAL); ?>
 
 <h2>Editar funcionário</h2>
 <form class="container" action="edit.php?COD_FUNC=<?php echo $funcionario['COD_FUNC']; ?>" method="post">

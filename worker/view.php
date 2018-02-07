@@ -5,7 +5,7 @@
 	view($_GET["user"], $_GET['pass']);
 ?>
 
-<?php include HEADER_TEMPLATE; ?>
+<?php include HEADER_TEMPLATE_INTERNAL; ?>
 
 <?php if ($worker) { ?>
 	<p><h1>Funcionário: <?php echo $worker["NOME"]; ?></h1></p>
